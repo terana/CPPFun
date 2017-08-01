@@ -1,0 +1,9 @@
+# osx noise
+.DS_Store
+
+# bin
+a.out
+run
+
+#debug
+*.dSYM
