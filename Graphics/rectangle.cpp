@@ -24,11 +24,11 @@ rectangle::rectangle(point a, point b) {
 	}
 }
 
-void rectangle::draw() {
+void rectangle::draw(screen& scr) {
      point nw(sw.x,ne.y);
      point se(ne.x,sw.y);
-     put_line(nw,ne);
-     put_line(ne,se);
-     put_line(se,sw);
-     put_line(sw,nw);
+     scr.put_line(nw,ne);
+     scr.put_line(ne,se);
+     scr.put_line(se,sw);
+     scr.put_line(sw,nw);
 }

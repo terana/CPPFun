@@ -5,12 +5,12 @@
 
 class shape;
 
-static shape* list;
+static shape* shape_list;
 
 class shape {
 public:
      shape* next;
-     shape() { next = list; list = this; }
+     shape() { next = shape_list; shape_list = this; }
      virtual point north() const = 0;
      virtual point south() const = 0;
      virtual point east() const = 0;
@@ -19,14 +19,14 @@ public:
      virtual point seast() const = 0;
      virtual point nwest() const = 0;
      virtual point swest() const = 0;
-     virtual void draw() = 0;
+     virtual void draw(screen& scr) = 0;
      virtual void move(int, int) = 0;
 };
 
-static void shape_refresh() {
-     screen_clear();
-     for (shape* p = list; p; p=p->next) p->draw();
-     screen_refresh();
+static void shape_refresh(screen& scr) {
+     scr.clear();
+     for (shape* p = shape_list; p; p=p->next) p->draw(scr);
+     scr.refresh();
 }
 
 static void stack(shape* p, const shape* q) // поместить p над q 
@@ -59,7 +59,7 @@ public:
      point nwest() const {return point(sw.x, ne.y); };
      point swest() const { return sw; };
      void move(int a, int b) { sw.x+=a; sw.y+=b; ne.x+=a; ne.y+=b; };
-     void draw();
+     void draw(screen& scr);
      rectangle(point,point);
 };
 
@@ -81,7 +81,7 @@ public:
      point nwest() const { return point(w.x, e.y<w.y?w.y:e.y); };
      point swest() const { return point(w.x, e.y<w.y?e.y:w.y); };
      void move(int a, int b) { w.x +=a; w.y +=b; e.x +=a; e.y +=b; };
-     void draw() { put_line(w,e); };
+     void draw(screen& scr) { scr.put_line(w,e); };
      line(point a, point b) { w = a; e = b; };
      line(point a, int l) { w = point(a.x+l-1,a.y); e = a; };
 };

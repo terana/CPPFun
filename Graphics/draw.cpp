@@ -9,7 +9,7 @@ class face_shape : public rectangle {
 	line* mouth;
 public:
   face_shape(point, point);
-  void draw();
+  void draw(screen& scr);
   void move(int, int);
 };
 
@@ -21,11 +21,11 @@ face_shape::face_shape(point a, point b) : rectangle(a,b) {
      mouth = new line(point(swest().x+2,swest().y+hh/4),ll-4);
 }
 
-void face_shape::draw() {
-     rectangle::draw();
+void face_shape::draw(screen& scr) {
+     rectangle::draw(scr);
      int a = (swest().x+neast().x)/2;
      int b = (swest().y+neast().y)/2;
-     put_point(point(a,b));
+     scr.put_point(point(a,b));
 }
 
 void face_shape::move(int a, int b) {
@@ -37,13 +37,14 @@ void face_shape::move(int a, int b) {
 
 
 int main() {
-     screen_init();
-     shape* p1 = new rectangle(point(0,0),point(10,10));
-     shape* p2 = new line(point(0,15),17);
-     shape* p3 = new face_shape(point(15,10),point(27,18));
-     p3->move(-10,-10);
-     stack(p2,p3);
-     stack(p1,p2);
-     shape_refresh();
+	screen scr;
+	scr.init();
+	shape* p1 = new rectangle(point(0,0),point(10,10));
+	shape* p2 = new line(point(0,15),17);
+	shape* p3 = new face_shape(point(15,10),point(27,18));
+	p3->move(-10,-10);
+	stack(p2,p3);
+	stack(p1,p2);
+	shape_refresh(scr);
      return 0;
 }

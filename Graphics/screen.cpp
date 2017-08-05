@@ -5,24 +5,13 @@
 #include "screen.h"
 #endif
 
-enum color { black='*', white=' ' };
-char screen[XMAX] [YMAX];
-
-void screen_init() {
+void screen::init() {
 	for (int y=0; y<YMAX; y++)
 		for (int x=0; x<XMAX; x++)
-			screen[x] [y] = white;
-}
-
-inline int on_screen(int a, int b) { // проверка попадания
-     return 0<=a && a <XMAX && 0<=b && b<YMAX;
+			screen_[x] [y] = white;
 }
   
-void put_point(int a, int b) {
-	if (on_screen(a,b)) screen[a] [b] = black;
-}
-
-void put_line(int x0, int y0, int x1, int y1) 
+void screen::put_line(int x0, int y0, int x1, int y1) 
 /*
 Нарисовать отрезок прямой (x0,y0) - (x1,y1). Уравнение прямой: b(x-x0) + a(y-y0) = 0. Минимизируется величина abs(eps),
 где eps = 2*(b(x-x0)) + a(y-y0).
@@ -42,18 +31,17 @@ void put_line(int x0, int y0, int x1, int y1)
 	register int eps = 0;
 
 	for (;;) {
-	       put_point(x0,y0);
+	       screen::put_point(x0,y0);
 	       if (x0==x1 && y0==y1) break;
 	       if (eps <= xcrit) x0 +=dx, eps +=two_b;
 	       if (eps>=a || a<b) y0 +=dy, eps -=two_a;
 	}
 }
 
-void screen_clear() { screen_init(); }
-void screen_refresh() {
+void screen::refresh() {
 	for (int y=YMAX-1; 0<=y; y--) { // с верхней строки до нижней 
 		for (int x=0; x<XMAX; x++) // от левого столбца до правого
-			std::cout << screen[x] [y];
+			std::cout << screen_[x] [y];
 		std::cout << '\n';
 	} 
 }
