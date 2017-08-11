@@ -25,4 +25,10 @@ int main() {
 	}
 	std::cout << "--------------------\n";
 	std::cout << "total\t" << total << '\n';
+	tbl.remove("lol");
+	for (Mapiter<std::string,int> p(tbl); p; ++p) {
+		int val = p.value();
+		total +=val;
+		std::cout << p.key() << '\t' << val << '\n';
+	}
 }

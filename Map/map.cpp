@@ -35,7 +35,24 @@ template<class K, class V>
 }
 
 template<class K, class V>
-  void  Map<K,V>::remove(const K& k) {}
+  void  Map<K,V>::remove(const K& k) {
+  	Link<K,V>* p = head;
+	for (;;) {
+		if (p == 0)
+  			return;
+		if (p->key == k) {
+			if (p->pre) {
+				p->pre->suc = p->suc;
+			}
+			if (p->suc) {
+				p->suc->pre = p->pre;
+			}
+			delete p;
+			return;
+		}
+		p = p->suc;
+	}
+  }
 
 template<class K, class V>
   Map<K,V>::Map(const Map<K,V>& m) {
