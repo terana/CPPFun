@@ -1,4 +1,7 @@
-*********************** PPFun **********************************
+# C++ Can Be Fun!
 
-Funny tasks from Jon Bentley's Programming Pearls (2nd edition) and Stroustrup's C++ Programming language.
-I know a lot about fun.
+Problems encouraged by reading two awesome books:
+- **Programming Pearls** by Jhon Bentley (2nd edition)
+- **C++ Programming language** by Stroustrup.
+
+*I know much about fun...*
